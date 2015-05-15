@@ -7,6 +7,8 @@ app.controller('PostViewCtrl', function($scope, $routeParams, Post, Auth) {
   $scope.user = Auth.user;
   $scope.signedIn = Auth.signedIn;
 
+  $scope.editing = false;
+
   $scope.addComment = function() {
     if(!$scope.commentText || $scope.commentText === '') {
       return;
@@ -25,5 +27,14 @@ app.controller('PostViewCtrl', function($scope, $routeParams, Post, Auth) {
 
   $scope.deleteComment = function(comment) {
     $scope.comments.$remove(comment);
+  };
+
+  $scope.editComment = function(comment) {
+    if(!comment.text || comment.text === '')
+    {
+      $scope.deleteComment(comment);
+    } else {
+      $scope.comments.$save(comment);
+    }
   };
 });

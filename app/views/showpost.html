@@ -27,20 +27,45 @@
 
   </div>
 
+
   <div ng-repeat="comment in comments" class="row cmt">
-    <div class="col-md-12">
-      <p>{{ comment.text }}</p>
+
+    <!-- Show comments -->
+    <div class="col-md-12" ng-hide="editing">
+      <div>
+        <span>{{ comment.text }}</span>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          ng-click="deleteComment(comment)"
+          ng-show="signedIn() && comment.creatorUID === user.uid">
+          <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button
+          type="button"
+          class="close"
+          ng-click="editing = true"
+          ng-show="signedIn() && comment.creatorUID === user.uid">
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </button>
+      </div>
       <p class="author">posted by
         <a href="#/users/{{ comment.creatorUID }}">
           {{ comment.creator }}
         </a>
-        <a href=""
-           ng-click="deleteComment(comment)"
-           ng-show="signedIn() && comment.creatorUID === user.uid">
-          (delete)
-        </a>
       </p>
     </div>
+
+    <!-- Edit Comment -->
+    <div class="col-md-12" ng-show="editing">
+      <form ng-submit="editComment(comment);editing = false">
+        <textarea ng-model="comment.text" class="form-control"></textarea><br/>
+        <input type="submit" value="Save" class="btn btn-sm" />
+        <button type="button" ng-click="editing = false" class="btn btn-sm">Cancel</button>
+      </form>
+    </div>
+
   </div>
 
 
