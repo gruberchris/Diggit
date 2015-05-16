@@ -40,7 +40,7 @@
           aria-label="Close"
           ng-click="deleteComment(comment)"
           ng-show="signedIn() && comment.creatorUID === user.uid">
-          <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+          <span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span>
         </button>
         <button
           type="button"
@@ -59,8 +59,9 @@
 
     <!-- Edit Comment -->
     <div class="col-md-12" ng-show="editing">
-      <form ng-submit="editComment(comment);editing = false">
-        <textarea ng-model="comment.text" class="form-control"></textarea><br/>
+      <form class="form-inline" ng-submit="editComment(comment);editing = false">
+        <textarea ng-model="comment.text" class="form-control"></textarea>
+        <br/>
         <input type="submit" value="Save" class="btn btn-sm" />
         <button type="button" ng-click="editing = false" class="btn btn-sm">Cancel</button>
       </form>

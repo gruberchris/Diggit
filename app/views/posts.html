@@ -4,7 +4,8 @@
     </div>
     <div class="col-md-9 col-xs-11">
 
-      <div class="info">
+      <!-- Show posts -->
+      <div class="info" ng-hide="editing">
         <a ng-href="{{ post.url }}">
           {{ post.title }}
           <span class="url">({{ post.url }})</span>
@@ -15,16 +16,43 @@
           aria-label="Close"
           ng-click="deletePost(post)"
           ng-show="user.uid === post.creatorUID">
-          <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+          <span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span>
         </button>
         <button
           type="button"
           class="close"
-          ng-click=""
+          ng-click="editing = true"
           ng-show="user.uid === post.creatorUID">
           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
         </button>
       </div>
+
+      <!-- Edit posts -->
+      <div class="info" ng-show="editing">
+        <form class="form-inline" ng-submit="editPost(post);editing = false">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Title" ng-model="post.title">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Link" ng-model="post.url">
+          </div>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            ng-click="editing = false">
+            <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            type="submit"
+            class="close"
+            ng-click="editing = true">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+          </button>
+        </form>
+
+      </div>
+
       <div>
         <span>submitted by <a ng-href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a></span>
         &mdash;

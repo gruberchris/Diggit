@@ -23,6 +23,9 @@ app.factory('Post', function($firebase, FIREBASE_URL) {
     },
     comments: function(postId) {
       return $firebase(ref.child('comments').child(postId)).$asArray();
+    },
+    save: function(post) {
+      return posts.$save(post);
     }
   };
 
